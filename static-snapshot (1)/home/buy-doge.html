@@ -1,0 +1,129 @@
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy TayTaySwiftPay</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!--Montserrat font-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      #request{
+        width:80%;
+      }
+    </style>
+  </head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3HTQWL2HV5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3HTQWL2HV5');
+</script>
+  <body>
+    <div class="coin">
+        <img class="coin__img" width="26" height="26" alt="" />
+        <span class="coin__name">-</span>
+        <span class="coin__price">$--</span>
+    </div>
+    <h3 id="min"></h3>
+    <input id="request" placeholder="How many TAYTAY tokens do you want? (Don't use commas!)">
+    <button id="calculate">CALCULATE</button>
+    <h5>To buy <span id="requested"></span> TayTaySwiftPay tokens, you must send <div id="result"></div> to DFB8unQf1KYH6GgM1Vzy9qsTaFmJtsiJs3</h5>
+    <h3><br><br><br><br>Happy with the price? Input your <input id="recipientAdd" placeholder="Solana address"> then send your payment to the address above. It may take up to 48 hours to recieve your TAYTAY tokens, so please be patient. You must pay for the tokens withing 24 hours of submitting this request due to the instability of the crypto market.</h3>
+    <button id="submitOrder"><h1>SUBMIT PURCHASE ORDER</h1></button>
+ <script src="https://smtpjs.com/v3/smtp.js"></script>
+ <script>
+var resultEl;
+var request;
+var recipientAdd;
+    // Change the UUID to the coin you want to fetch
+const uuid = 'a91GCGd_u96cF';
+
+const options = {
+  headers: {
+    'Content-Type': 'application/json',
+    // Uncomment the next line and replace your-access-token-here with you own API key
+    'x-access-token': 'coinranking70ab872ca9de2b3dbc20e22c30c59c76b8c26594ac954203',
+  },
+};
+
+const priceFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
+const renderCoin = (coin) => {
+  // Select the HTML elements
+  const imgElement = document.querySelector('.coin__img');
+  const nameElement = document.querySelector('.coin__name');
+  const priceElement = document.querySelector('.coin__price');
+  request = document.getElementById("request");
+  var requested = document.getElementById("requested");
+  resultEl = document.getElementById("result");
+  var calculate = document.getElementById("calculate");
+
+  // Render the values into the HTML
+  imgElement.src = coin.iconUrl;
+  nameElement.innerText = coin.name;
+  priceElement.innerText = priceFormatter.format(coin.price);
+  priceElement.innerText = priceFormatter.format(coin.price);
+  requested.innerHTML = request.value;
+  console.log(coin.price);
+  
+  var min = document.getElementById("min");
+  min.innerHTML = "NOTE: minimum purchase amount is "+(50.1*coin.price)/(1/30000);
+
+  resultEl.innerHTML = (Math.round(100000000*(((10000/300000000)*request)/coin.price))/100000000)+" DOGE";
+
+  calculate.addEventListener("click", function(){calcfunc(coin,resultEl,parseFloat(request.value))});
+};
+var calcfunc = function(coin,b,requestval){
+  console.log(coin.price);
+  console.log(b);
+  b.innerText = (Math.round(100000000*(((10000/300000000)*requestval)/coin.price))/100000000);
+  console.log(requestval+","+coin.price+","+Math.round(50.2));
+};
+fetch(`https://api.coinranking.com/v2/coin/${uuid}`)
+  .then((response) => response.json())
+  .then((result) => renderCoin(result.data.coin));
+//Email stuff
+setInterval(function(){
+  recipientAdd = document.getElementById("recipientAdd");
+  recipientAdd = recipientAdd.value;
+},500);
+var sendEmail = function(){
+    var d = new Date();
+    console.log(93);
+    var date =  d.getFullYear()+"/"+(d.getMonth()+1)+"/"+(d.getDay()+6)+" Time:"+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"."+d.getMilliseconds();
+    console.log(95,request);
+    request = document.getElementById("request");
+    request = request.value;
+    var resultEl = document.getElementById("result");
+    var emailComp = "<h1>Date/time of submission: "+date+".<br>   Buy amount: "+request+"<br>   Buy coin and price: DogeCoin | "+resultEl.innerText+".<br>This will be sent to :"+recipientAdd+"</h1>";
+    console.log(97);
+    Email.send({
+            Host : "smtp.elasticemail.com",
+            Username : "taytayswiftpay@gmail.com",
+            Password : "F6110400F30426C817A9ECD9C445FE9270C8",
+            To : 'taytayswiftpay@gmail.com',
+            From : "taytayswiftpay@gmail.com",
+            Subject : "OH. MY. GOSH. WE JUST GOT AN ORDER!!!!!",
+            Body : emailComp
+        }).then(
+            message => alert("Your order has been placed. Thank you.")
+        );
+    console.log("sucess!");
+};
+var submitOrder = document.getElementById("submitOrder");
+submitOrder.addEventListener("click", function(){
+sendEmail();
+});
+</script>
+  </body>
+</html>

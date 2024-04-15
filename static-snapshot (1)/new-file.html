@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DataHub - Database Management Platform</title>
+</head>
+<body>
+
+<h1>Welcome to DataHub</h1>
+
+<p>Create an account to start managing your databases efficiently.</p>
+
+<form method="post" action="database.php">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+    <button type="submit" name="create_account">Create Account</button>
+</form>
+
+<h2>Features</h2>
+<ol>
+    <li>Customizable fields</li>
+    <li>Data storage</li>
+    <li>Data editing</li>
+    <li>Data sharing</li>
+</ol>
+
+<h3>Create Your Database</h3>
+
+<form method="post" action="database.php">
+    <label for="databaseName">Database Name:</label>
+    <input type="text" id="databaseName" name="databaseName"><br><br>
+    <label for="fields">Fields:</label><br>
+    <input type="text" id="field1" name="fields[]" placeholder="Enter field name"><br><br>
+    <button type="button" onclick="addField()">Add Field</button><br><br>
+    <button type="submit" name="create_database">Create Database</button>
+</form>
+
+<script>
+function addField() {
+    var input = document.createElement("input");
+    input.type = "text";
+    input.name = "fields[]";
+    input.placeholder = "Enter field name";
+    document.querySelector("form").appendChild(input);
+    document.querySelector("form").appendChild(document.createElement("br"));
+}
+</script>
+
+</body>
+</html>

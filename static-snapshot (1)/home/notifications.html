@@ -1,0 +1,91 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TayTaySwiftPay</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!--Montserrat font-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      #request{
+        width:80%;
+      }
+    </style>
+  </head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3HTQWL2HV5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3HTQWL2HV5');
+</script>
+  <body>
+    <h1>Sign up for Email alerts and notifications here.</h1>
+    <input id="request" placeholder="Your email address">
+    <br>
+    <h4>Special offers and promotions:</h4>
+    <select id="offers">
+        <option value="true">Enable</option>
+        <option value="false">Disable</option>
+    </select>
+    <br><br>
+    <h4>Notifications about release:</h4>
+    <select id="release">
+        <option value="true">Enable</option>
+        <option value="false">Disable</option>
+    </select>
+    <br><br>
+    <h4>Updates on fund-raising progress:</h4>
+    <select id="funds">
+        <option value="true">Enable</option>
+        <option value="false">Disable</option>
+    </select>
+    <br><br>
+    <h4>Airdrops</h4>
+    <select id="airdrops">
+        <option value="true">Enable</option>
+        <option value="false">Disable</option>
+    </select>
+    <br><br>
+    <h4>Other news:</h4>
+    <select id="news">
+        <option value="true">Enable</option>
+        <option value="false">Disable</option>
+    </select>
+    <br><br>
+    <button onclick="sendEmail()"><h2>Accept</h2></button>
+ <script src="https://smtpjs.com/v3/smtp.js"></script>
+ <script>
+var sendEmail = function(){
+var address = document.getElementById("request").value;
+var news = "News: "+document.getElementById("news").value;
+var airdrops = "<br>Airdrops: "+document.getElementById("airdrops").value;
+var funds = "<br>Funds: "+document.getElementById("funds").value;
+var release = "<br>Release: "+document.getElementById("release").value;
+var offers = "<br>Offers: "+document.getElementById("offers").value;
+    var d = new Date();
+    var date =  d.getFullYear()+"/"+(d.getMonth()+1)+"/"+(d.getDay()+6)+" Time:"+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"."+d.getMilliseconds();
+    var emailComp = date+"<br>Add "+address+" to "+news+airdrops+funds+release+offers+" list.";
+    console.log(228);
+    Email.send({
+            Host : "smtp.elasticemail.com",
+            Username : "taytayswiftpay@gmail.com",
+            Password : "F6110400F30426C817A9ECD9C445FE9270C8",
+            To : 'taytayswiftpay@gmail.com',
+            From : "taytayswiftpay@gmail.com",
+            Subject : "New Email subscriber",
+            Body : emailComp
+        }).then(
+            message => alert("Thanks for subscribing! To unsubscribe, edit your choices here and hit 'Accept'")
+        );
+    console.log("sucess!");
+};
+</script>
+  </body>
+</html>
